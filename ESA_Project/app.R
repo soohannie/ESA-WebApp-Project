@@ -1,5 +1,7 @@
 rm(list=ls()) 
 library(shiny)
+source("SIR_Modelling.R")
+
 #==============================================================================================
 #Shiny App Functionality Design
 
@@ -51,11 +53,17 @@ ui <- fluidPage(
                   label = "Number of bins:",
                   min = 1,
                   max = 50,
-                  value = 30)
+                  value = 30),
+      sliderInput(inputId = "degree",
+                  label = "Degree of Social Distancing:",
+                  min = 0.4,
+                  max = 1,
+                  value = 0.8)
     ),
     mainPanel(
       #Insert Main graphs here
-      plotOutput(outputId = "distPlot")
+      plotOutput(outputId = "distPlot"),
+      plotOutput(outputId = "infectionPlot")
     )
   )
   
@@ -67,15 +75,18 @@ server <- function(input, output, session) {
   callModule(counter, "counter3")
   callModule(counter, "counter4")
   
+  #just example plot - TO BE DELETED
   output$distPlot <- renderPlot({
-    
     x    <- faithful$waiting
     bins <- seq(min(x), max(x), length.out = input$bins + 1)
-    
     hist(x, breaks = bins, col = "#75AADB", border = "white",
          xlab = "Waiting time to next eruption (in mins)",
          main = "Histogram of waiting times")
-    
+  })
+  
+  output$infectionPlot <- renderPlot({
+    degr <- input$degree
+    simulate_model(degr)
   })
 }
 
