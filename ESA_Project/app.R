@@ -1,6 +1,6 @@
 rm(list=ls()) 
 library(shiny)
-source("SIR_Modelling.R")
+source("social_distancing.R")
 
 #==============================================================================================
 #Shiny App Functionality Design
