@@ -19,10 +19,7 @@ ui <- fluidPage(
     
     mainPanel(
       
-      fluidRow(
-        column(8,plotOutput(outputId = "drawplot")), #Resources left in draw pile
-      ),
-      
+      fluidRow(plotOutput(outputId = "drawplot") ), #(Resources left in draw pile)
       fluidRow( splitLayout(cellWidths = c("50%", "50%"), plotOutput("infectionPlot"), plotOutput("SIR_Plot")))
       
       
